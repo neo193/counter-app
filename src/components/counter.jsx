@@ -14,7 +14,7 @@ class Counter extends Component {
 
   render() {
     return (
-      <div className="d-flex container mt-2">
+      <div className="d-flex mt-2">
         <span
           style={{
             display: "flex",
