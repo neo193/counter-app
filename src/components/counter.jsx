@@ -1,36 +1,14 @@
 import React, { Component } from "react";
 
 class Counter extends Component {
-  state = {
-    value: this.props.value,
-  };
-
-  handleIncrement = () => {
-    this.setState((prevState) => ({
-      value: prevState.value + 1,
-    }));
-  };
-
-  handleDecrement = () => {
-    this.setState((prevState) => ({
-      value: prevState.value - 1,
-    }));
-  };
-
-  handleReset = () => {
-    this.setState(() => ({
-      value: 0,
-    }));
-  };
-
   getBadgeClasses() {
     var classes = "badge m-2 bg-";
-    classes += this.state.value === 0 ? "warning" : "primary";
+    classes += this.props.value === 0 ? "warning" : "primary";
     return classes;
   }
 
   counterDisplay() {
-    const { value } = this.state;
+    const { value } = this.props;
     return value === 0 ? "Zero" : value;
   }
 
@@ -53,15 +31,15 @@ class Counter extends Component {
         <button
           style={{ width: "60px", height: "40px" }}
           className="btn btn-secondary m-2"
-          onClick={this.handleIncrement}
+          onClick={() => this.props.onIncrement(this.props.id)}
         >
           +
         </button>
         <button
           style={{ width: "60px", height: "40px" }}
           className="btn btn-secondary m-2"
-          onClick={this.handleDecrement}
-          disabled={this.state.value === 0}
+          onClick={() => this.props.onDecrement(this.props.id)}
+          disabled={this.props.value === 0}
         >
           -
         </button>
@@ -81,8 +59,8 @@ class Counter extends Component {
         <button
           style={{ width: "60px", height: "40px" }}
           className="btn btn-warning m-2"
-          onClick={this.handleReset}
-          hidden={this.state.value === 0}
+          onClick={() => this.props.onReset(this.props.id)}
+          hidden={this.props.value === 0}
         >
           Reset
         </button>

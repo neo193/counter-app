@@ -28,6 +28,26 @@ class Counters extends Component {
     });
   };
 
+  handleIncrement = (counterID) => {
+    const counters = [...this.state.counters];
+    const counter = counters.find((c) => c.id === counterID);
+
+    if (counter) {
+      counter.value++;
+      this.setState({ counters });
+    }
+  };
+
+  handleDecrement = (counterID) => {
+    const counters = [...this.state.counters];
+    const counter = counters.find((c) => c.id === counterID);
+
+    if (counter) {
+      counter.value--;
+      this.setState({ counters });
+    }
+  };
+
   handleDelete = (counterId) => {
     const newCounters = this.state.counters.filter(
       (counter) => counter.id !== counterId
@@ -35,15 +55,42 @@ class Counters extends Component {
     this.setState({ counters: newCounters });
   };
 
+  handleReset = (counterID) => {
+    const counters = [...this.state.counters];
+    const counter = counters.find((c) => c.id === counterID);
+
+    if (counter) {
+      counter.value = 0;
+      this.setState({ counters });
+    }
+  };
+
+  formatTopCount() {
+    return this.state.counters.filter((counter) => counter.value > 0).length;
+  }
+
   render() {
     return (
       <div>
         <nav
-          className="navbar bg-dark border-bottom border-body"
+          className="navbar navbar-expand-lg navbar-dark bg-dark"
           data-bs-theme="dark"
         >
           <div className="container">
             <span className="navbar-brand mb-0 h1">Navbar</span>
+            <div class="navbar-collapse">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <span
+                    className={`badge m-2 bg-primary ${
+                      this.formatTopCount() === 0 ? "d-none" : ""
+                    }`}
+                  >
+                    {this.formatTopCount()}
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
         </nav>
         {this.state.counters.map((counter) => (
@@ -51,6 +98,9 @@ class Counters extends Component {
             key={counter.id}
             id={counter.id}
             onDelete={this.handleDelete}
+            onIncrement={this.handleIncrement}
+            onDecrement={this.handleDecrement}
+            onReset={this.handleReset}
             value={counter.value}
             selected={true}
           />
