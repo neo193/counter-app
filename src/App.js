@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import NavBar from './components/navbar';
+import Navbar from './components/navbar';
 import Counters from './components/counters';
 import Footer from './components/footer';
 
@@ -72,7 +72,7 @@ class App extends Component {
   }
   render() {
     return (<React.Fragment>
-      <NavBar formatCount={this.formatTopCount()} />
+      <Navbar formatCount={this.formatTopCount()} />
       <main className='container'>
         <Counters counters={this.state.counters}
           onAddMore={this.handleAddMore}
